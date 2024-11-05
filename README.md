@@ -2,11 +2,11 @@
 Multi-modal CrossViT using 3D Spatial Information for Visual Localization (SCIE) / Published: 18 Oct 2024  
 [[Paper](https://drive.google.com/file/d/16deTO1LvQE-eh0E4dOQJt9njEz26IRIu/view?usp=sharing)] [[Online](https://link.springer.com/article/10.1007/s11042-024-20382-w?utm_source=rct_congratemailt&utm_medium=email&utm_campaign=nonoa_20241018&utm_content=10.1007%2Fs11042-024-20382-w)]  
 
-### Pipeline Instructions
+# Pipeline Instructions
 - 1~7. 데이터 전처리
 - 8, 10. Train
-- 11 Inference for global locaization (image retrieval)
-- 12 Camera pose estimation
+- 11. Inference for global locaization (image retrieval)
+- 12. Camera pose estimation
 
 1. pipeline_sfm_visuallocalization.ipynb
 - dataset의 structure-from-motion을 수행하여 3D Point를 생성합니다. 
@@ -19,6 +19,8 @@ Multi-modal CrossViT using 3D Spatial Information for Visual Localization (SCIE)
 ```bash
 python prepare_database_3column.py
 ```
+- Output : DataBase3Column.pkl
+- Positive image pair 간 3D Bounding box의 IoU 값을 계산
 
 3. CSV preparation:
 ```bash
@@ -29,16 +31,19 @@ python prepare_database_csv.py
 ```bash
 python point_cloud_iou_processor.py
 ```
+- Output : output_iou_database.pkl  
 
 5. Feature distance computation:
 ```bash
 python compute_feature_distances.py
 ```
+- Output: DataBase_Norm_Tiny.pickle  
 
 6. Rotary embeddings generation:
 ```bash
 python generate_rotary_embeddings.py
 ```
+- Output: Large_Patch_14x14_RT_RoPE_Tensor.pickle
 
 7. Validation data preparation:
 ```bash
@@ -54,6 +59,7 @@ python train_multimodal_crossvit_teacher.py
 ```bash
 python prepare_validation_query.py
 ```
+- Output : ValidationAll_Teacher_Key_Real.pickle 
 
 10. Student model training:
 ```bash
@@ -68,6 +74,8 @@ python generate_localization_pairs.py
 **최종 테스트 파일**
 12. final_pipeline.ipynb
 - 11번에서 생성한 'Retrieved_Images'를 적용하며 Visual Localization을 수행합니다. 
+- Output : Pose_Estimation_Results
+- Benchmark : https://www.visuallocalization.net/
 
 ---
 
