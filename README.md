@@ -3,17 +3,10 @@ Multi-modal CrossViT using 3D Spatial Information for Visual Localization (SCIE)
 [[Paper](https://drive.google.com/file/d/16deTO1LvQE-eh0E4dOQJt9njEz26IRIu/view?usp=sharing)] [[Online](https://link.springer.com/article/10.1007/s11042-024-20382-w?utm_source=rct_congratemailt&utm_medium=email&utm_campaign=nonoa_20241018&utm_content=10.1007%2Fs11042-024-20382-w)]  
 
 # Pipeline Instructions
-- 1~7. Preprocessing
-- 8, 10. Train
-- 11 Inference for global locaization (image retrieval)
-- 12 Camera pose estimation
-
+## Preprocessing
 1. pipeline_sfm_visuallocalization.ipynb
 - dataset의 structure-from-motion을 수행하여 3D Point를 생성합니다. 
 - 기존 NetVLAD가 적용된 Visual Localization을 수행하실 수 있습니다. 
-
-
-**순차적으로 실행하시면 됩니다.**  
 
 2. Database preparation:
 ```bash
@@ -50,35 +43,36 @@ python generate_RoPE_embeddings.ipynb
 python prepare_validation_data.py
 ```
 
-8. Teacher model training:
-```bash
-python train_multimodal_crossvit_teacher.py
-```
-
-9. Query validation preparation:
+8. Query validation preparation:
 ```bash
 python prepare_validation_query.py
 ```
-- Output : ValidationAll_Teacher_Key_Real.pickle 
+- Output : ValidationAll_Teacher_Key_Real.pickle
+
+## Training
+9. Teacher model training:
+```bash
+python train_multimodal_crossvit_teacher.py
+```
 
 10. Student model training:
 ```bash
 python train_knowledge_distillation_student.py
 ```
 
+## Inference for global locaization (image retrieval)
 11. Localization pairs generation:
 ```bash
 python generate_localization_pairs.py
 ```
 
-**최종 테스트 파일**
+## Camera pose estimation
 12. final_pipeline.ipynb
 - 11번에서 생성한 'Retrieved_Images'를 적용하며 Visual Localization을 수행합니다. 
 - Output : Pose_Estimation_Results
 - Benchmark : https://www.visuallocalization.net/
 
 ---
-
 
 ### 국문 요약:  
 1. 게재처(학회/학술지):    
