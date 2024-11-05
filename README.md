@@ -5,8 +5,8 @@ Multi-modal CrossViT using 3D Spatial Information for Visual Localization (SCIE)
 # Pipeline Instructions
 - 1~7. 데이터 전처리
 - 8, 10. Train
-- 11. Inference for global locaization (image retrieval)
-- 12. Camera pose estimation
+- 11 Inference for global locaization (image retrieval)
+- 12 Camera pose estimation
 
 1. pipeline_sfm_visuallocalization.ipynb
 - dataset의 structure-from-motion을 수행하여 3D Point를 생성합니다. 
