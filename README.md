@@ -1,5 +1,6 @@
 # Spatial-Contrastive-Learning
-Multi-modal CrossViT using 3D Spatial Information for Visual Localization (SCIE) / Published: 18 Oct 2024
+Multi-modal CrossViT using 3D Spatial Information for Visual Localization (SCIE) / Published: 18 Oct 2024  
+[[Paper](https://drive.google.com/file/d/16deTO1LvQE-eh0E4dOQJt9njEz26IRIu/view?usp=sharing)] [[Online](https://link.springer.com/article/10.1007/s11042-024-20382-w?utm_source=rct_congratemailt&utm_medium=email&utm_campaign=nonoa_20241018&utm_content=10.1007%2Fs11042-024-20382-w)]  
 
 ### Pipeline Instructions
 - 1~7. 데이터 전처리
@@ -70,7 +71,6 @@ python generate_localization_pairs.py
 
 ---
 
-Multi modal CrossViT using 3D-Spatial Information for Visual Localization [[Paper](https://drive.google.com/file/d/16deTO1LvQE-eh0E4dOQJt9njEz26IRIu/view?usp=sharing)] [[Online](https://link.springer.com/article/10.1007/s11042-024-20382-w?utm_source=rct_congratemailt&utm_medium=email&utm_campaign=nonoa_20241018&utm_content=10.1007%2Fs11042-024-20382-w)]   
 
 ### 국문 요약:  
 1. 게재처(학회/학술지):    
