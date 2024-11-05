@@ -41,7 +41,7 @@ python compute_feature_distances.py
 
 6. Rotary embeddings generation:
 ```bash
-python generate_rotary_embeddings.py
+python generate_RoPE_embeddings.py  
 ```
 - Output: Large_Patch_14x14_RT_RoPE_Tensor.pickle
 
