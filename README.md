@@ -183,8 +183,7 @@ python generate_localization_pairs.py
   <img src="https://github.com/user-attachments/assets/c812ee5e-e2d9-4f52-9d9f-72e3ae83fb6a" alt="Result 1">
 </p>  
 
-[Left]: Query image    
-[Right]: Retrieved reference images   
+[Left]: Query image | [Right]: Retrieved reference images     
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/e265257c-2a91-4fdf-bccf-10d9669be934" alt="Result 2">
