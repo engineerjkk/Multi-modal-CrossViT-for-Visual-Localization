@@ -4,7 +4,10 @@ Junekoo Kang, Mark Mpabulungi & Hyunki Hong / Published: 18 Oct 2024 (SCIE) / [[
 <p align="center">
   <img src="https://github.com/user-attachments/assets/dfbdde7a-63c7-44af-a12e-01ed88ac0269" alt="Pipe-Line">
 </p>
-**Architectures of the proposed method in training for global localization (a) and inference for visual localization (b)** 
+
+**Architectures of the proposed method in training for global localization (a) and inference for visual localization (b)**
+
+---
 
 # Pipeline Instructions
 ## Preprocessing
