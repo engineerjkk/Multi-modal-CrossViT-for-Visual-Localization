@@ -1,6 +1,7 @@
-# Spatial-Contrastive-Learning (업데이트 중 2024.11.05)
-Multi-modal CrossViT using 3D Spatial Information for Visual Localization (SCIE) / Published: 18 Oct 2024  
-[[Paper](https://drive.google.com/file/d/16deTO1LvQE-eh0E4dOQJt9njEz26IRIu/view?usp=sharing)] [[Online](https://link.springer.com/article/10.1007/s11042-024-20382-w?utm_source=rct_congratemailt&utm_medium=email&utm_campaign=nonoa_20241018&utm_content=10.1007%2Fs11042-024-20382-w)]  
+(업데이트 중 2024.11.06)
+# Multi-modal CrossViT using 3D spatial information for visual localization
+---
+Junekoo Kang, Mark Mpabulungi & Hyunki Hong / (SCIE) / Published: 18 Oct 2024 / [[Paper](https://drive.google.com/file/d/16deTO1LvQE-eh0E4dOQJt9njEz26IRIu/view?usp=sharing)] [[Online](https://link.springer.com/article/10.1007/s11042-024-20382-w?utm_source=rct_congratemailt&utm_medium=email&utm_campaign=nonoa_20241018&utm_content=10.1007%2Fs11042-024-20382-w)]  
 
 # Pipeline Instructions
 ## Preprocessing
