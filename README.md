@@ -17,8 +17,6 @@ Experimental results show that the proposed approach achieves performance compar
 ## Step-by-step Tutorial
 ### Preprocessing
 1. pipeline_sfm_visuallocalization.ipynb
-- dataset의 structure-from-motion을 수행하여 3D Point를 생성합니다. 
-- 기존 NetVLAD가 적용된 Visual Localization을 수행하실 수 있습니다. 
 
 2. Database preparation:
 ```bash
@@ -29,13 +27,12 @@ python preprocessing.py
 ```bash
 python point_cloud_iou_processor.py
 ```
-- Output : output_iou_database.pkl  
 
 4. Rotary embeddings generation:
 ```bash
 python generate_RoPE_embeddings.ipynb    
 ```
-- Output: Large_Patch_14x14_RT_RoPE_Tensor.pickle
+
 
 ### Training
 5. Teacher model training:
@@ -57,7 +54,7 @@ python generate_localization_pairs.py
 ### Camera pose estimation
 8. final_pipeline.ipynb
 - 11번에서 생성한 'Retrieved_Images'를 적용하며 Visual Localization을 수행합니다. 
-- Output : Pose_Estimation_Results
+- Output : Pose_Estimation_Results.txt
 - Benchmark : https://www.visuallocalization.net/
 
 ---
