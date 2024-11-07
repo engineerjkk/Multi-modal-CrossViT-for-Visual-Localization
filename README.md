@@ -22,64 +22,40 @@ Experimental results show that the proposed approach achieves performance compar
 
 2. Database preparation:
 ```bash
-python prepare_database_3column.py
-```
-- Output : DataBase3Column.pkl
-- Positive image pair 간 3D Bounding box의 IoU 값을 계산
-
-3. CSV preparation:
-```bash
-python prepare_database_csv.py
+python preprocessing.py
 ```
 
-4. Point cloud processing:
+3. Point cloud processing:
 ```bash
 python point_cloud_iou_processor.py
 ```
 - Output : output_iou_database.pkl  
 
-5. Feature distance computation:
-```bash
-python compute_feature_distances.py
-```
-- Output: DataBase_Norm_Tiny.pickle  
-
-6. Rotary embeddings generation:
+4. Rotary embeddings generation:
 ```bash
 python generate_RoPE_embeddings.ipynb    
 ```
 - Output: Large_Patch_14x14_RT_RoPE_Tensor.pickle
 
-7. Validation data preparation:
-```bash
-python prepare_validation_data.py
-```
-
-8. Query validation preparation:
-```bash
-python prepare_validation_query.py
-```
-- Output : ValidationAll_Teacher_Key_Real.pickle
-
 ### Training
-9. Teacher model training:
+5. Teacher model training:
 ```bash
 python train_multimodal_crossvit_teacher.py
 ```
 
-10. Student model training:
+6. Student model training:
 ```bash
 python train_knowledge_distillation_student.py
 ```
 
 ### Inference for global locaization (image retrieval)
-11. Localization pairs generation:
+7. Localization pairs generation:
 ```bash
 python generate_localization_pairs.py
 ```
 
 ### Camera pose estimation
-12. final_pipeline.ipynb
+8. final_pipeline.ipynb
 - 11번에서 생성한 'Retrieved_Images'를 적용하며 Visual Localization을 수행합니다. 
 - Output : Pose_Estimation_Results
 - Benchmark : https://www.visuallocalization.net/
