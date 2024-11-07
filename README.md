@@ -3,10 +3,14 @@
 This is the code for **Multi-modal CrossViT using 3D spatial information for visual localization** by Junekoo Kang, Mark Mpabulungi & Hyunki Hong. | Published: 18 Oct 2024 | SCIE | [[Paper](https://drive.google.com/file/d/16deTO1LvQE-eh0E4dOQJt9njEz26IRIu/view?usp=sharing)] | [[Online](https://link.springer.com/article/10.1007/s11042-024-20382-w?utm_source=rct_congratemailt&utm_medium=email&utm_campaign=nonoa_20241018&utm_content=10.1007%2Fs11042-024-20382-w)] |   
 
 ![Fig 2 (a)](https://github.com/user-attachments/assets/7d9881c4-f7a9-496e-be1c-f54928ca426e)  
-Architectures of the proposed method in training for global localization  
+<p align="center">
+  Architectures of the proposed method in training for global localization  
+</p>
 
 ![Fig 2 (b)](https://github.com/user-attachments/assets/b42417f3-ee4e-43ce-9b69-565312f3b1a2)  
-Inference for visual localization  
+<p align="center">
+  Inference for visual localization  
+</p>
 
 **Abstract**: *Visual Localization entails estimating the position and orientation of a camera from input images. Since it is pivotal to robotics, autonomous vehicles, and augmented reality felds, improvements to its accuracy and computational efciency are vital. Although several approaches to hierarchical visual localization have been proposed, the convolutional operations in their global localization stage infate their computational requirements. This study proposes a hierarchical framework comprised of a multi-modal CrossViT (Vision Transformer) that leverages both image features and 3D spatial information to generate more robust global descriptors. In the contrastive learning approach employed, the positive and negative image sets for each anchor image are designated based on the presence of shared 3D points. The intersection-over-union between 3D bounding boxes generated from a pair of images is used as a quantitative measure of similarity for positive sets in the loss computation. The embedding capacity of the proposed multi-modal CrossViT is transferred onto an architecture that takes a single image as input using a knowledge distillation approach.
 Local matching models are used to establish correspondences between the anchor image and each of the retrieved reference images. The fnal camera pose is determined using the random sample consensus and perspective-n-point algorithm. The large-scale Aachen Day-Night datasets were used to evaluate the efciency and accuracy of the proposed approach.
