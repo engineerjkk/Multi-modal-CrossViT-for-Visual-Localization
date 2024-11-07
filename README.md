@@ -1,7 +1,6 @@
 (업데이트 중 2024.11.07)
 # Spatial Contrastive Learning
-This is the code for **Multi-modal CrossViT using 3D spatial information for visual localization** by Junekoo Kang, Mark Mpabulungi & Hyunki Hong.  
-| Published: 18 Oct 2024 | SCIE | [[Paper](https://drive.google.com/file/d/16deTO1LvQE-eh0E4dOQJt9njEz26IRIu/view?usp=sharing)] | [[Online](https://link.springer.com/article/10.1007/s11042-024-20382-w?utm_source=rct_congratemailt&utm_medium=email&utm_campaign=nonoa_20241018&utm_content=10.1007%2Fs11042-024-20382-w)] |   
+This is the code for **Multi-modal CrossViT using 3D spatial information for visual localization** by Junekoo Kang, Mark Mpabulungi & Hyunki Hong. | Published: 18 Oct 2024 | SCIE | [[Paper](https://drive.google.com/file/d/16deTO1LvQE-eh0E4dOQJt9njEz26IRIu/view?usp=sharing)] | [[Online](https://link.springer.com/article/10.1007/s11042-024-20382-w?utm_source=rct_congratemailt&utm_medium=email&utm_campaign=nonoa_20241018&utm_content=10.1007%2Fs11042-024-20382-w)] |   
 <p align="center">
   <img src="https://github.com/user-attachments/assets/dfbdde7a-63c7-44af-a12e-01ed88ac0269" alt="Pipe-Line">
 </p>
