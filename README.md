@@ -16,7 +16,7 @@ Experimental results show that the proposed approach achieves performance compar
 
 ## Step-by-step Tutorial
 ### Preprocessing
-1. Structure-from-Motion  
+1. Structure-from-Motion:  
 ```bash
 pipeline_sfm_visuallocalization.ipynb 
 ```
