@@ -16,7 +16,10 @@ Experimental results show that the proposed approach achieves performance compar
 
 ## Step-by-step Tutorial
 ### Preprocessing
-1. pipeline_sfm_visuallocalization.ipynb
+1. Structure-from-Motion  
+```bash
+pipeline_sfm_visuallocalization.ipynb 
+```
 
 2. Database preparation:
 ```bash
@@ -30,7 +33,7 @@ python point_cloud_iou_processor.py
 
 4. Rotary embeddings generation:
 ```bash
-python generate_RoPE_embeddings.ipynb    
+generate_RoPE_embeddings.ipynb    
 ```
 
 
