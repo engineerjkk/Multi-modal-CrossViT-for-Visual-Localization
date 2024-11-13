@@ -84,15 +84,18 @@ pip install -r requirements.txt
 ## Project Structure
 ```
 ├── datasets/
-│   └── aachen/              # Aachen Day-Night dataset
+│   └── aachen/              # Aachen Day-Night dataset for visual localization
 ├── models/
-│   ├── crossvit_official.py
-│   └── crossvit_PE_RT_official_MultiModal.py
-├── preprocessing.py         # Data preprocessing and 3D point cloud generation
-├── train_multimodal_crossvit_teacher.py  # Teacher model training
-├── train_knowledge_distillation_student.py  # Student model training
-├── generate_localization_pairs.py  # Image retrieval pair generation
-└── final_pipeline.ipynb    # End-to-end visual localization pipeline
+│   ├── crossvit_official.py                    # Base CrossViT implementation
+│   └── crossvit_PE_RT_official_MultiModal.py   # Multi-modal CrossViT with RoPE encoding
+├── DataBase/               # Preprocessed data including 3D points and descriptors
+├── pipeline_sfm_visuallocalization.ipynb  # Structure-from-Motion pipeline for 3D reconstruction
+├── preprocessing.py        # Point cloud generation and spatial information extraction
+├── generate_RoPE_embeddings.ipynb  # Rotary Positional Encoding for 3D spatial information
+├── train_multimodal_crossvit_teacher.py  # Training pipeline for multi-modal teacher model
+├── train_knowledge_distillation_student.py  # Knowledge distillation training for student model
+├── generate_localization_pairs.py  # Reference image retrieval pair generation
+└── final_pipeline.ipynb    # Complete visual localization pipeline with pose estimation
 ```
 
 ## Pipeline Steps
