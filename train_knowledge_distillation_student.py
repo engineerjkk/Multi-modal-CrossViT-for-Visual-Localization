@@ -22,6 +22,7 @@ class Config:
     MARGIN = 0.5
     BASE_PATH = Path('datasets/aachen/images/images_upright')
     MODEL_PATH = Path('model/Train_Teacher')
+    STUDENT_MODEL_PATH = Path('model/Train_Student')
     TRANSFORM = transforms.Compose([
         transforms.Resize((224, 224)),
         transforms.RandomHorizontalFlip(),
@@ -68,6 +69,23 @@ class ImageDataset(Dataset):
                
     def __len__(self):
         return len(self.database)
+
+class ValidationDataset(Dataset):
+    """Validation dataset"""
+    def __init__(self, keys, images, embeddings):
+        self.keys = keys
+        self.images = images
+        self.embeddings = embeddings
+        self.key_to_idx = {k: i for i, k in enumerate(keys)}
+        
+    def __getitem__(self, idx):
+        key = self.keys[idx]
+        img = Config.TRANSFORM(Image.open(Config.BASE_PATH / self.images[key].name))
+        embed = self.embeddings[key].clone().detach().float()
+        return img, embed
+        
+    def __len__(self):
+        return len(self.keys)
 
 class Trainer:
     """Model trainer class"""
@@ -152,10 +170,20 @@ class Trainer:
         neighbors = NearestNeighbors(n_neighbors=3).fit(features)
         
         recalls = []
-        key_to_idx = {k: i for i, k in enumerate(loader.dataset.keys)}
+        key_to_idx = loader.dataset.key_to_idx
         
-        for anchor, positives in zip(self.val_data['Anchor'], self.val_data['Positive']):
-            idx = neighbors.kneighbors(features[key_to_idx[anchor[0]]].reshape(1, -1))[1][0]
+        for anchor in self.val_data['Anchor']:
+            # Handle both single values and lists for anchors
+            anchor_key = anchor[0] if isinstance(anchor, list) else anchor
+            anchor_idx = key_to_idx[anchor_key]
+            
+            # Get positives for this anchor
+            positives = self.val_data['Positive'][len(recalls)]  # Get corresponding positives
+            if not isinstance(positives, list):
+                positives = [positives]
+                
+            # Find nearest neighbors
+            idx = neighbors.kneighbors(features[anchor_idx].reshape(1, -1))[1][0]
             recalls.append(any(key_to_idx[p] in idx for p in positives))
             
         return sum(recalls) / len(recalls)
@@ -163,7 +191,7 @@ class Trainer:
     def save_checkpoint(self, epoch, recall, is_best=False):
         """Save model checkpoint"""
         prefix = 'best_' if is_best else ''
-        path = Config.MODEL_PATH / f'{prefix}model{epoch}_{recall:.4f}.pth'
+        path = Config.STUDENT_MODEL_PATH / f'{prefix}model{epoch}_{recall:.4f}.pth'
         torch.save({
             'step': epoch,
             'crossvit_state_dict': self.model.state_dict(),
@@ -175,12 +203,32 @@ class Trainer:
         if is_train:
             dataset = ImageDataset(self.database, self.images, self.embeddings)
         else:
-            keys = list(set([val for sublist in self.val_data['Anchor'] + 
-                           self.val_data['Positive'] for val in sublist]))
-            dataset = ImageDataset(keys, self.images, self.embeddings)
+            # Collect all unique keys from anchors and positives
+            anchor_keys = []
+            positive_keys = []
             
-        return DataLoader(dataset, batch_size=Config.BATCH_SIZE, 
-                         shuffle=is_train, num_workers=multiprocessing.cpu_count())
+            # Process anchors
+            for anchor in self.val_data['Anchor']:
+                if isinstance(anchor, list):
+                    anchor_keys.extend(anchor)
+                else:
+                    anchor_keys.append(anchor)
+                    
+            # Process positives
+            for positive in self.val_data['Positive']:
+                if isinstance(positive, list):
+                    positive_keys.extend(positive)
+                else:
+                    positive_keys.append(positive)
+            
+            # Combine and get unique keys
+            keys = list(set(anchor_keys + positive_keys))
+            dataset = ValidationDataset(keys, self.images, self.embeddings)
+        
+        return DataLoader(dataset, 
+                        batch_size=Config.BATCH_SIZE,
+                        shuffle=is_train, 
+                        num_workers=multiprocessing.cpu_count())
 
 def main():
     trainer = Trainer()
