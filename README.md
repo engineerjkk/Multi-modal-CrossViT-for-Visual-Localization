@@ -18,45 +18,14 @@ This project introduces a novel hierarchical framework for visual localization u
 
 ## Architecture
 ### Training Architecture
-![Fig 2 (a)](https://github.com/user-attachments/assets/7d9881c4-f7a9-496e-be1c-f54928ca426e)  
 The training pipeline employs a dual-branch architecture:
 - Image Branch: Processes visual features using CrossViT
 - Spatial Branch: Handles 3D information with RoPE encoding
+![Fig 2 (a)](https://github.com/user-attachments/assets/7d9881c4-f7a9-496e-be1c-f54928ca426e)  
+
 ### Inference Architecture
-![Fig 2 (b)](https://github.com/user-attachments/assets/b42417f3-ee4e-43ce-9b69-565312f3b1a2)  
 The inference model uses a lightweight student architecture that maintains spatial awareness through knowledge distillation.
-
-## Performance Highlights
-
-### Camera Pose Estimation Accuracy
-
-| Condition | (0.25m, 2°) | (0.5m, 5°) | (5m, 10°) |
-|-----------|-------------|------------|------------|
-| Daytime   | 87.3%       | 95.0%      | 97.6%      |
-| Nighttime | 87.8%       | 89.8%      | 95.9%      |
-
-### Image Retrieval Performance (P@K)
-| Models | P@200 | P@150 | P@100 | P@50 | P@20 | P@5 | P@1 |
-|--------|--------|--------|--------|-------|-------|------|------|
-| Ours | **0.8209** | **0.7727** | **0.7206** | **0.6889** | **0.7383** | **0.8368** | 0.8976 |
-| NetVLAD | 0.4611 | 0.4427 | 0.4257 | 0.4529 | 0.5980 | 0.8219 | **0.9425** |
-
-### Computational Efficiency Comparison
-| Models | FLOPs (GB) | Parameters (MB) |
-|--------|------------|-----------------|
-| NetVLAD | 94.3 | 148.9 |
-| AP-GEM | 86.2 | 105.3 |
-| CRN | 94.3 | 148.9 |
-| SARE | 94.3 | 148.9 |
-| HAF | 1791.2 | 158.8 |
-| Patch-NetVLAD | 94.2 | 148.7 |
-| **Ours** | **1.6** | **6.9** |
-
-Key advantages of our approach:
-- Significantly better precision at higher K values (P@200 to P@20)
-- 58.9× fewer FLOPs than NetVLAD (1.6 GB vs 94.3 GB)
-- 21.6× fewer parameters than NetVLAD (6.9 MB vs 148.9 MB)
-- Competitive performance with state-of-the-art methods while maintaining lower computational requirements  
+![Fig 2 (b)](https://github.com/user-attachments/assets/b42417f3-ee4e-43ce-9b69-565312f3b1a2)  
 
 ## Requirements
 
@@ -156,6 +125,39 @@ Performs visual localization:
 Evaluate on the [Visual Localization Benchmark](https://www.visuallocalization.net/):
 1. Generate pose estimates using the pipeline
 2. Submit `Pose_Estimation_Results.txt` to the benchmark
+
+## Performance Highlights
+
+### Camera Pose Estimation Accuracy
+
+| Condition | (0.25m, 2°) | (0.5m, 5°) | (5m, 10°) |
+|-----------|-------------|------------|------------|
+| Daytime   | 87.3%       | 95.0%      | 97.6%      |
+| Nighttime | 87.8%       | 89.8%      | 95.9%      |
+
+### Image Retrieval Performance (P@K)
+| Models | P@200 | P@150 | P@100 | P@50 | P@20 | P@5 | P@1 |
+|--------|--------|--------|--------|-------|-------|------|------|
+| Ours | **0.8209** | **0.7727** | **0.7206** | **0.6889** | **0.7383** | **0.8368** | 0.8976 |
+| NetVLAD | 0.4611 | 0.4427 | 0.4257 | 0.4529 | 0.5980 | 0.8219 | **0.9425** |
+
+### Computational Efficiency Comparison
+| Models | FLOPs (GB) | Parameters (MB) |
+|--------|------------|-----------------|
+| NetVLAD | 94.3 | 148.9 |
+| AP-GEM | 86.2 | 105.3 |
+| CRN | 94.3 | 148.9 |
+| SARE | 94.3 | 148.9 |
+| HAF | 1791.2 | 158.8 |
+| Patch-NetVLAD | 94.2 | 148.7 |
+| **Ours** | **1.6** | **6.9** |
+
+Key advantages of our approach:
+- Significantly better precision at higher K values (P@200 to P@20)
+- 58.9× fewer FLOPs than NetVLAD (1.6 GB vs 94.3 GB)
+- 21.6× fewer parameters than NetVLAD (6.9 MB vs 148.9 MB)
+- Competitive performance with state-of-the-art methods while maintaining lower computational requirements  
+
 
 ## Citation
 If you find this work useful, please cite our paper:
