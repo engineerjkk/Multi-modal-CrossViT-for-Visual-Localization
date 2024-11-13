@@ -23,8 +23,33 @@ This repository provides the official implementation of "Multi-modal CrossViT us
 - Significant reduction in computational requirements (58.9× fewer FLOPs, 21.6× fewer parameters than NetVLAD)
 
 ## Performance Highlights
+
+### Camera Pose Estimation Accuracy
 - Daytime accuracy: 87.3% (0.25m, 2°), 95.0% (0.5m, 5°), 97.6% (5m, 10°)
 - Nighttime accuracy: 87.8% (0.25m, 2°), 89.8% (0.5m, 5°), 95.9% (5m, 10°)
+
+### Image Retrieval Performance (P@K)
+| Models | P@200 | P@150 | P@100 | P@50 | P@20 | P@5 | P@1 |
+|--------|--------|--------|--------|-------|-------|------|------|
+| Ours | **0.8209** | **0.7727** | **0.7206** | **0.6889** | **0.7383** | **0.8368** | 0.8976 |
+| NetVLAD | 0.4611 | 0.4427 | 0.4257 | 0.4529 | 0.5980 | 0.8219 | **0.9425** |
+
+### Computational Efficiency Comparison
+| Models | FLOPs (GB) | Parameters (MB) |
+|--------|------------|-----------------|
+| NetVLAD | 94.3 | 148.9 |
+| AP-GEM | 86.2 | 105.3 |
+| CRN | 94.3 | 148.9 |
+| SARE | 94.3 | 148.9 |
+| HAF | 1791.2 | 158.8 |
+| Patch-NetVLAD | 94.2 | 148.7 |
+| **Ours** | **1.6** | **6.9** |
+
+Key advantages of our approach:
+- Significantly better precision at higher K values (P@200 to P@20)
+- 58.9× fewer FLOPs than NetVLAD (1.6 GB vs 94.3 GB)
+- 21.6× fewer parameters than NetVLAD (6.9 MB vs 148.9 MB)
+- Competitive performance with state-of-the-art methods while maintaining lower computational requirements  
 
 ## Requirements
 
