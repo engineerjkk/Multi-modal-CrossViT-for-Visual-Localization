@@ -1,5 +1,6 @@
 (업데이트 중 2024.11.07)
 # Spatial Contrastive Learning
+[![Paper](https://img.shields.io/badge/Paper-Springer-blue)](https://doi.org/10.1007/s11042-024-20382-w)  
 This is the code for **Multi-modal CrossViT using 3D spatial information for visual localization** by Junekoo Kang, Mark Mpabulungi & Hyunki Hong. | Published: 18 Oct 2024 | SCIE | [[Paper](https://drive.google.com/file/d/16deTO1LvQE-eh0E4dOQJt9njEz26IRIu/view?usp=sharing)] | [[Online](https://link.springer.com/article/10.1007/s11042-024-20382-w?utm_source=rct_congratemailt&utm_medium=email&utm_campaign=nonoa_20241018&utm_content=10.1007%2Fs11042-024-20382-w)] |   
 
 ![Fig 2 (a)](https://github.com/user-attachments/assets/7d9881c4-f7a9-496e-be1c-f54928ca426e)  
@@ -12,185 +13,130 @@ This is the code for **Multi-modal CrossViT using 3D spatial information for vis
   Inference for visual localization  
 </p>
 
-**Abstract**: *Visual Localization entails estimating the position and orientation of a camera from input images. Since it is pivotal to robotics, autonomous vehicles, and augmented reality felds, improvements to its accuracy and computational efciency are vital. Although several approaches to hierarchical visual localization have been proposed, the convolutional operations in their global localization stage infate their computational requirements. This study proposes a hierarchical framework comprised of a multi-modal CrossViT (Vision Transformer) that leverages both image features and 3D spatial information to generate more robust global descriptors. In the contrastive learning approach employed, the positive and negative image sets for each anchor image are designated based on the presence of shared 3D points. The intersection-over-union between 3D bounding boxes generated from a pair of images is used as a quantitative measure of similarity for positive sets in the loss computation. The embedding capacity of the proposed multi-modal CrossViT is transferred onto an architecture that takes a single image as input using a knowledge distillation approach.
-Local matching models are used to establish correspondences between the anchor image and each of the retrieved reference images. The fnal camera pose is determined using the random sample consensus and perspective-n-point algorithm. The large-scale Aachen Day-Night datasets were used to evaluate the efciency and accuracy of the proposed approach.
-Experimental results show that the proposed approach achieves performance comparable to that of previous state-of-the-art approaches with signifcantly less processing and memory requirements (58.9 times fewer per-second foating-point operations and 21.6 times fewer parameters than the NetVLAD model).*
+This repository provides the official implementation of "Multi-modal CrossViT using 3D spatial information for visual localization" (Multimedia Tools and Applications, 2024). The proposed approach leverages both image features and 3D spatial information through a novel multi-modal architecture for accurate camera pose estimation.
 
----
+## Key Features
+- Multi-modal CrossViT architecture leveraging 2D images and 3D spatial information
+- RoPE-based 3D spatial information encoding
+- Novel spatial contrastive learning strategy using shared 3D points
+- Knowledge distillation from teacher to student model for efficient inference
+- Significant reduction in computational requirements (58.9× fewer FLOPs, 21.6× fewer parameters than NetVLAD)
 
-## Step-by-step Tutorial
-### Preprocessing
-1. Structure-from-Motion:  
+## Performance Highlights
+- Daytime accuracy: 87.3% (0.25m, 2°), 95.0% (0.5m, 5°), 97.6% (5m, 10°)
+- Nighttime accuracy: 87.8% (0.25m, 2°), 89.8% (0.5m, 5°), 95.9% (5m, 10°)
+
+## Requirements
+
+### Environment Setup
 ```bash
-pipeline_sfm_visuallocalization.ipynb 
+conda create -n spatial_contrastive_learning python=3.8
+conda activate spatial_contrastive_learning
+pip install -r requirements.txt
 ```
 
-2. Pre-processing:
+### Dependencies
+- PyTorch >= 1.7.0
+- HLOC
+- OpenCV
+- NumPy
+- Pandas
+- scikit-learn
+- Tensorboard
+- tqdm
+
+## Project Structure
+```
+├── datasets/
+│   └── aachen/              # Aachen Day-Night dataset
+├── models/
+│   ├── crossvit_official.py
+│   └── crossvit_PE_RT_official_MultiModal.py
+├── preprocessing.py         # Data preprocessing and 3D point cloud generation
+├── train_multimodal_crossvit_teacher.py  # Teacher model training
+├── train_knowledge_distillation_student.py  # Student model training
+├── generate_localization_pairs.py  # Image retrieval pair generation
+└── final_pipeline.ipynb    # End-to-end visual localization pipeline
+```
+
+## Pipeline Steps
+
+### 1. Preprocessing
 ```bash
+# Run SfM and preprocessing
 python preprocessing.py
+
+# Generate RoPE embeddings
+jupyter notebook generate_RoPE_embeddings.ipynb
 ```
 
-3. Rotary Embedding Generation:
-```bash
-generate_RoPE_embeddings.ipynb    
-```
+The preprocessing step includes:
+- Structure-from-Motion (SfM) for 3D point cloud generation
+- Point cloud processing for spatial information
+- Feature extraction and database preparation
 
+### 2. Model Training
 
-### Training
-4. Teacher Model Training:
+#### Teacher Model
 ```bash
 python train_multimodal_crossvit_teacher.py
 ```
+Trains the multi-modal CrossViT model using:
+- Dual-branch architecture for image and 3D spatial features
+- Spatial contrastive learning with IoU-based similarity
+- Hard negative sampling strategy
 
-5. Student Model Training:
+#### Student Model
 ```bash
 python train_knowledge_distillation_student.py
 ```
+Implements knowledge distillation with:
+- Gaussian kernel-based embedding transfer
+- Single-image input for efficient inference
+- Preservation of spatial awareness
 
-### Inference for Global Localization (image retrieval)
-6. Localization pair generation:
+### 3. Visual Localization
+
+#### Generate Image Pairs
 ```bash
 python generate_localization_pairs.py
 ```
+Creates pairs for image retrieval using learned embeddings.
 
-### Camera Pose Estimation
-7. final_pipeline.ipynb
-- 11번에서 생성한 'Retrieved_Images'를 적용하며 Visual Localization을 수행합니다. 
-- Output : Pose_Estimation_Results.txt
-- Benchmark : https://www.visuallocalization.net/
+#### Camera Pose Estimation
+```bash
+jupyter notebook final_pipeline.ipynb
+```
+Performs visual localization:
+- Image retrieval using student model
+- Local feature matching
+- PnP-RANSAC pose estimation
 
----
+## Evaluation
+Evaluate on the [Visual Localization Benchmark](https://www.visuallocalization.net/):
+1. Generate pose estimates using the pipeline
+2. Submit `Pose_Estimation_Results.txt` to the benchmark
 
-### 국문 요약:  
-1. 게재처(학회/학술지):    
-    - Multimedia Tools and Materials (SCIE)    
-    - Accepted: 8 Oct 2024
-    - Published: 18 Oct 2024 
+## Citation
+If you find this work useful, please cite our paper:
+```bibtex
+@article{kang2024multi,
+  title={Multi-modal {CrossViT} using {3D} spatial information for visual localization},
+  author={Kang, Junekoo and Mpabulungi, Mark and Hong, Hyunki},
+  journal={Multimedia Tools and Applications},
+  year={2024},
+  publisher={Springer},
+  doi={10.1007/s11042-024-20382-w}
+}
+```
 
-2. 저자구분: 1 저자      
+## Acknowledgments
+- HLOC for the hierarchical localization framework
+- CrossViT for the transformer architecture
+- Aachen Day-Night dataset for evaluation
 
-3. 논문 주요내용: 대규모 환경의 계층적 Visual Localization 단계에서 Global Localization을 위한 새로운 Image Retrieval 모델 제안   
-- Multi-modal CrossViT (Vision Transformer) 모델 :    
-    - 이미지 특징과 3D 공간 정보를 모두 활용하여 더 견고한 Global descriptor 생성    
-    - 두 개의 별도 브랜치를 통해 이미지 패치와 3D 공간 정보를 처리       
-- Spatial Contrastive Learning:        
-    - Anchor 이미지에 대한 Positive 및 Negative 이미지 셋을 공유된 3D 포인트 존재 여부에 따라 지정   
-    - 3D 바운딩 박스 간 IoU(Intersection over Union)를 유사성 측정에 활용        
-- Knowledge Distillation 접근법 적용:       
-    - Multi-modal CrossViT(Teacher)의 임베딩 능력을 단일 이미지 입력 모델(Student)로 전달  
-    - 실제 응용단계에서 제약 조건을 고려한 효율적인 추론 모델 구현      
-- 성능 평가 및 분석:    
-    - 기존 모델 대비 파라미터 21.6배, FLOPs 58.9배 감소     
-    - 이미지 검색 정확도(Precision@K) 5-fold cross validation 결과 대부분에서 성능 향상     
-    - 일부 벤치마크에서 카메라 포즈 정확도(meter, degree) 향상   
-
-4. 결론: 이를 통해 모델을 크게 줄이면서도 이미지 검색 정확도를 향상해 SCIE 급 저널에 주저자로 제출했습니다. 질의 이미지와 동일 공간의 참조 이미지를 빠르고 정확하게 검색하면, 기하학적 매칭 연산을 통해 질의 이미지의 정확한 카메라 포즈를 추정할 수 있어 자율주행, 로봇 분야에서 파급 효과를 볼 수 있습니다.  
-
-### 선행 연구:  
-• 석사 학위 논문 (2023.12): [영상 위치 파악을 위한 공간적 CrossViT 기반 다중 모달 메트릭 학습](https://dcollection.cau.ac.kr/srch/srchDetail/000000241188?treePageNum=1&navigationSize=10&orgYn=all&thesisDegree=all&pageSize=10&ajax=false&searchText=%5B%EC%A0%84%EC%B2%B4%3AVisual+localization%5D&agreeYn=all&sortField=score&sortDir=desc&searchOption=km&searchOperator2=%2B&searchOperator3=%2B&searchWhere1=all&searchWhere2=all&insCode=211052&searchWhere3=all&searchKeyWord1=Visual+localization&query=%2B%28%28all%3Avisual%2Blocalization%29%29&itemTypeCode=all&start=0&searthTotalPage=0&rows=10&pageNum=1&searchTotalCount=0)  
-• SCIE 논문 2 저자 (2023.03): [Clustering Reference Images Based on Covisibility for Visual Localization](https://www.techscience.com/cmc/v75n2/52040)   
-
----
-### Purpose
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/27cb6dda-0b9b-4b9e-a2d3-193918806657" alt="Purpose">
-</p>
-- The proposed approach is capable of generating distinct embeddings for scenes that are physically distant from each other even when they have similar visual features. Here, the embeddings of an anchor image (black outline) and its corresponding positive image (red outline) are close to each other in the embedding space but that of the negative image (blue outline) is farther away.   
-
-### Contribution
-●	A multi-modal CrossViT architecture, capable of generating effective global representations from 2D images and 3D spatial information as part of a hierarchical framework.  
-●	A RoPE-based 3D spatial information encoding approach for the multi-modal CrossViT architecture.  
-●	A novel spatial contrastive learning strategy, in which positive and negative image sets for each anchor image are designated based on the presence of shared 3D points as well as a quantitative measure of similarity based on the IoU between 3D bounding boxes that are generated from a pair of images.  
-●	A knowledge distillation approach to transfer the embedding capacity of the proposed multi-modal CrossViT architecture onto an architecture that takes a single image as input. This bridges the gap between the rich multi-modal representations and the practical constraints of real-world applications.  
-●	A comprehensive analysis of the performance of various global and local matching technique combinations in a hierarchical pipeline, as well as the effects of hard negative sampling and data augmentation techniques such as day-to-night stylization on large-scale datasets.  
-
-
-### Pipe-Line
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/dfbdde7a-63c7-44af-a12e-01ed88ac0269" alt="Pipe-Line">
-</p>
-- Architectures of the proposed method in training for global localization (a) and inference for visual localization (b).   
-
-### Architecture
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/f160ace0-70f0-4b27-b52a-6ece1ea4c80a" alt="Architecture">
-</p>
-[Left] : Architecture of proposed multi-modal CrossViT model, an extension of the CrossViT architecture.        
-[Right] :Transferring teacher model representational capabilities to student model. 
-
-### Data Augmentation
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/bc47f81c-5d3a-4530-95e8-1c322090ab88" alt="Data Augmentation">
-</p>
-- CycleGAN-based style transfer model [58, 59] was used to generate synthetic nighttime images including Random Cropping, Random Color Distortions, Random Gaussian Blur, etc.  
-
-### Loss Function
-#### Training Teacher Model
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/4bed04f1-9009-44e2-aaa5-491fb02d957d" alt="Loss Function 1">
-</p> 
-- A pair of images captured from the same scene and 3D bounding boxes generated from their 3D points.    
- 
-ㅤ  
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/b8b3e578-1cfc-4770-8372-6f54f2292be8" alt="Loss Function 2">
-</p>
-- The IoU values across all positive image pairs in the dataset are used to normalize IoU values   
-ㅤ  
-ㅤ  
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/2564f1c2-f3dc-4e03-8d9c-b35522ad1753" alt="Loss Function 3">
-</p>
-- d_(i,j) represents the Euclidean distance between embedding vectors generated by the proposed multi-modal CrossViT model. w_(i,j) is the degree of proximity between positive image pairs that is expressed as a continuous value ranging from 0 (negative) to 1 (same image). Optimizing this loss results in more similar embeddings for images captured in closer proximity to each other. 
-ㅤ
-    
-#### Knowledge Distillation for Training Student Model  
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/8bb146a3-6df3-4924-8494-d6ec2d8f6fbc" alt="Knowledge Distillation 1">
-</p>
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/438aacd5-6aa9-4a44-959c-9b0a51314364" alt="Knowledge Distillation 2">
-</p>
-- The student model is trained to have an embedding space similar to that of the teacher model. Since the loss function ensures that the representations generated from an anchor and negative image pair are even farther away from each other in the embedding space, the student model generates more robust representations than the teacher model. 
-ㅤ    
-
-### Results
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/c812ee5e-e2d9-4f52-9d9f-72e3ae83fb6a" alt="Result 1">
-</p>  
-
-[Left]: Query image | [Right]: Retrieved reference images     
-
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/e265257c-2a91-4fdf-bccf-10d9669be934" alt="Result 2">
-</p>
-- 10 anchor images (a) and t-SNE plots of their global descriptors generated using: NetVLAD (b), the proposed multi-modal CrossViT teacher model (c) and the student model (d)  
-
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/6129cdb5-a463-4b1e-8690-dabaeb973255" alt="Result 3">
-</p>
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/59efa180-5a93-413f-b525-a2809230e60e" alt="Result 4">
-</p>
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/a248943b-32db-4a09-8750-c8c96c78f3a3" alt="Result 5">
-</p>
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/631c769f-2184-482e-b89b-71922e57e413" alt="Result 6">
-</p>
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/165cce51-7157-45c8-b7ee-b55a21e1d8a5" alt="Result 7">
-</p>
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/f923f384-b096-4e6d-9158-7f5cb7100453" alt="Result 8">
-</p>
-
------
-### Conclusion
-In order to facilitate more robust camera pose estimation, this study proposes a multi-modal CrossViT that leverages both image features and 3D spatial information in generating robust descriptors in the global localization stage of hierarchical visual localization frameworks. Prior to training, the positive and negative image sets for each anchor image are designated based on the presence of shared 3D points. The proposed teacher model was trained using a spatial contrastive loss in which the degree of proximity between anchor and positive images is used as a quantitative measure of similarity. In order to transfer the embedding capacity of this multi-modal architecture to an inference model that only requires a single image input with no 3D spatial information, a Gaussian kernel-based knowledge distillation approach was used. The proposed approach was evaluated on the large-scale Aachen Day-Night and Aachen Day-Night_v1.1 datasets. Experimental results show that the proposed approach requires significantly less memory and processing power than previous state-of-the-art approaches but achieves comparable performance. More specifically, it achieves accuracies of 87.3%, 95.0%, and 97.6% for daytime cases and 87.8%, 89.8%, and 95.9% for nighttime cases under thresholds of “0.25m, 2°”, “0.5m, 5°” and “5m, 10°” respectively with 58.9 times fewer FLOPs and 21.6 times fewer parameters than the NetVLAD model. As highlighted in Figures 10-12, the proposed approach achieves robust representations containing visual and 3D spatial information across a range of scenes. However, it is unable to generate sufficiently robust embeddings for scenes that occur only once or twice in the imbalanced training dataset. In order to address this, we intend to constitute and pre-train with significantly larger datasets that are suitable for SfM reconstruction. Weighting coefficients are to be used to further emphasize the impact of anchor images with smaller positive sets during training. Hard negative sampling techniques that consider both spatial proximity and visual similarity are also to be leveraged in improving recall performance.
-
-## Cite this article  
-Kang, J., Mpabulungi, M. & Hong, H. Multi-modal CrossViT using 3D spatial information for visual localization. Multimed Tools Appl (2024). https://doi.org/10.1007/s11042-024-20382-w
-
+## Contact
+For questions or issues, please open an issue or contact the authors:
+- Junekoo Kang (engineerjkk@cau.ac.kr)
 
 
