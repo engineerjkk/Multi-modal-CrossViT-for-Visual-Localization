@@ -1,31 +1,46 @@
-# Multi modal CrossViT for Visual Localization
+# Multi-modal CrossViT for Visual Localization
 [![Paper](https://img.shields.io/badge/Paper-Springer-blue)](https://doi.org/10.1007/s11042-024-20382-w)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.8](https://img.shields.io/badge/python-3.8-blue.svg)](https://www.python.org/downloads/release/python-380/)
 [![arXiv](https://img.shields.io/badge/MTAP-2024-b31b1b.svg)](https://link.springer.com/article/10.1007/s11042-024-20382-w)
 
-Official implementation of "Multi-modal CrossViT using 3D spatial information for visual localization" (Multimedia Tools and Applications, 2024) by Junekoo Kang, Mark Mpabulungi, and Hyunki Hong.| [[Paper](https://drive.google.com/file/d/16deTO1LvQE-eh0E4dOQJt9njEz26IRIu/view?usp=sharing)] | [[Online](https://link.springer.com/article/10.1007/s11042-024-20382-w?utm_source=rct_congratemailt&utm_medium=email&utm_campaign=nonoa_20241018&utm_content=10.1007%2Fs11042-024-20382-w)] |   
+Official implementation of "Multi-modal CrossViT using 3D spatial information for visual localization" (Multimedia Tools and Applications, 2024) by Junekoo Kang, Mark Mpabulungi, and Hyunki Hong. | [[Paper](https://drive.google.com/file/d/16deTO1LvQE-eh0E4dOQJt9njEz26IRIu/view?usp=sharing)] | [[Online](https://link.springer.com/article/10.1007/s11042-024-20382-w?utm_source=rct_congratemailt&utm_medium=email&utm_campaign=nonoa_20241018&utm_content=10.1007%2Fs11042-024-20382-w)] |   
+
+## Table of Contents
+- [Overview](#overview)
+- [Architecture](#architecture)
+- [Requirements](#requirements)
+- [Project Structure](#project-structure)
+- [Pipeline Steps](#pipeline-steps)
+- [Evaluation](#evaluation)
+- [Performance Highlights](#performance-highlights)
+- [Citation](#citation)
+- [Acknowledgments](#acknowledgments)
+- [Contact](#contact)
 
 ## Overview
+This research introduces a state-of-the-art hierarchical framework for visual localization leveraging a multi-modal CrossViT architecture. Our approach uniquely combines image features with 3D spatial information, achieving superior performance with significantly reduced computational requirements.
 
-This project introduces a novel hierarchical framework for visual localization using a multi-modal CrossViT architecture that combines both image features and 3D spatial information. Key innovations include:
-
-- **Multi-modal Architecture**: Integrates visual and 3D spatial information through a dual-branch CrossViT
-- **RoPE-based Encoding**: Efficient encoding of 3D spatial information using Rotary Position Embedding
-- **Spatial Contrastive Learning**: Novel strategy using shared 3D points and IoU-based similarity metrics
-- **Knowledge Distillation**: Efficient inference through teacher-student model transfer
-- **Computational Efficiency**: 58.9× fewer FLOPs and 21.6× fewer parameters than NetVLAD
+### Key Innovations
+- **Multi-modal Architecture**: Dual-branch CrossViT integrating visual and 3D spatial information
+- **RoPE-based Encoding**: Advanced 3D spatial information encoding using Rotary Position Embedding
+- **Spatial Contrastive Learning**: Novel training strategy utilizing shared 3D points and IoU-based similarity metrics
+- **Knowledge Distillation**: Optimized inference through teacher-student model transfer
+- **Computational Efficiency**: Achieves 58.9× fewer FLOPs and 21.6× fewer parameters compared to NetVLAD
 
 ## Architecture
+
 ### Training Architecture
-The training pipeline employs a dual-branch architecture:
-- Image Branch: Processes visual features using CrossViT
-- Spatial Branch: Handles 3D information with RoPE encoding
 ![Fig 2 (a)](https://github.com/user-attachments/assets/7d9881c4-f7a9-496e-be1c-f54928ca426e)  
 
+The training pipeline implements a sophisticated dual-branch architecture:
+- **Image Branch**: Advanced visual feature processing using CrossViT
+- **Spatial Branch**: Specialized 3D information handling with RoPE encoding
+
 ### Inference Architecture
-The inference model uses a lightweight student architecture that maintains spatial awareness through knowledge distillation.
 ![Fig 2 (b)](https://github.com/user-attachments/assets/b42417f3-ee4e-43ce-9b69-565312f3b1a2)  
+
+Our inference model employs a lightweight student architecture maintaining spatial awareness through knowledge distillation, optimized for real-world deployment.
 
 ## Requirements
 
@@ -36,100 +51,86 @@ conda activate spatial_contrastive_learning
 pip install -r requirements.txt
 ```
 
-### Dependencies
-- PyTorch >= 1.7.0
-- HLOC
-- OpenCV
-- NumPy
-- Pandas
-- scikit-learn
-- Tensorboard
-- tqdm
+### Core Dependencies
+```txt
+pytorch>=1.7.0
+hloc
+opencv-python
+numpy
+pandas
+scikit-learn
+tensorboard
+tqdm
+```
 
 ## Project Structure
 ```
 ├── datasets/
-│   └── aachen/              # Aachen Day-Night dataset for visual localization
+│   └── aachen/              # Aachen Day-Night dataset
 ├── models/
-│   ├── crossvit_official.py                    # Base CrossViT implementation
-│   └── crossvit_PE_RT_official_MultiModal.py   # Multi-modal CrossViT with RoPE encoding
-├── DataBase/               # Preprocessed data including 3D points and descriptors
-├── pipeline_sfm_visuallocalization.ipynb  # Structure-from-Motion pipeline for 3D reconstruction
-├── preprocessing.py        # Point cloud generation and spatial information extraction
-├── generate_RoPE_embeddings.ipynb  # Rotary Positional Encoding for 3D spatial information
-├── train_multimodal_crossvit_teacher.py  # Training pipeline for multi-modal teacher model
-├── train_knowledge_distillation_student.py  # Knowledge distillation training for student model
-├── generate_localization_pairs.py  # Reference image retrieval pair generation
-└── final_pipeline.ipynb    # Complete visual localization pipeline with pose estimation
+│   ├── crossvit_official.py                    # Base CrossViT
+│   └── crossvit_PE_RT_official_MultiModal.py   # Multi-modal CrossViT
+├── DataBase/               # Preprocessed data
+├── pipeline_sfm_visuallocalization.ipynb  # SfM pipeline
+├── preprocessing.py        # Point cloud processing
+├── generate_RoPE_embeddings.ipynb  # RoPE encoding
+├── train_multimodal_crossvit_teacher.py  # Teacher model training
+├── train_knowledge_distillation_student.py  # Student model training
+├── generate_localization_pairs.py  # Pair generation
+└── final_pipeline.ipynb    # End-to-end pipeline
 ```
 
 ## Pipeline Steps
 
-### 1. Preprocessing
+### 1. Data Preprocessing
 ```bash
-# Run SfM and preprocessing
+# SfM and preprocessing
 jupyter notebook pipeline_sfm_visuallocalization.ipynb
 python preprocessing.py
 
-# Generate RoPE embeddings
+# RoPE embeddings generation
 jupyter notebook generate_RoPE_embeddings.ipynb
 ```
 
-The preprocessing step includes:
-- Structure-from-Motion (SfM) for 3D point cloud generation
-- Point cloud processing for spatial information
-- Feature extraction and database preparation
-
 ### 2. Model Training
 
-#### Teacher Model  
-The teacher model consists of two main branches:  
-- Image branch: Processes visual features using CrossViT  
-- Spatial branch: Handles 3D information with RoPE encoding  
+#### Teacher Model Training
 ```bash
 python train_multimodal_crossvit_teacher.py
 ```
-Trains the multi-modal CrossViT model using:
-- Dual-branch architecture for image and 3D spatial features
-- Spatial contrastive learning with IoU-based similarity
-- Hard negative sampling strategy
+Implements:
+- Dual-branch architecture
+- Spatial contrastive learning
+- Hard negative sampling
 
-#### Student Model  
-A lightweight version that inherits spatial awareness through knowledge distillation.
+#### Student Model Training
 ```bash
 python train_knowledge_distillation_student.py
 ```
-Implements knowledge distillation with:
+Features:
 - Gaussian kernel-based embedding transfer
-- Single-image input for efficient inference
-- Preservation of spatial awareness
+- Single-image inference optimization
+- Spatial awareness preservation
 
-### 3. Visual Localization
+### 3. Visual Localization Pipeline
 
-#### Generate Image Pairs
+#### Reference Pair Generation
 ```bash
 python generate_localization_pairs.py
 ```
-Creates pairs for image retrieval using learned embeddings.
 
-#### Camera Pose Estimation
+#### Pose Estimation
 ```bash
 jupyter notebook final_pipeline.ipynb
 ```
-Performs visual localization:
-- Image retrieval using student model
-- Local feature matching
-- PnP-RANSAC pose estimation
-
-## Evaluation
-Evaluate on the [Visual Localization Benchmark](https://www.visuallocalization.net/):
-1. Generate pose estimates using the pipeline
-2. Submit `Pose_Estimation_Results.txt` to the benchmark
+Pipeline components:
+1. Student model image retrieval
+2. Local feature matching
+3. PnP-RANSAC pose estimation
 
 ## Performance Highlights
 
 ### Camera Pose Estimation Accuracy
-
 | Condition | (0.25m, 2°) | (0.5m, 5°) | (5m, 10°) |
 |-----------|-------------|------------|------------|
 | Daytime   | 87.3%       | 95.0%      | 97.6%      |
@@ -141,7 +142,7 @@ Evaluate on the [Visual Localization Benchmark](https://www.visuallocalization.n
 | Ours | **0.8209** | **0.7727** | **0.7206** | **0.6889** | **0.7383** | **0.8368** | 0.8976 |
 | NetVLAD | 0.4611 | 0.4427 | 0.4257 | 0.4529 | 0.5980 | 0.8219 | **0.9425** |
 
-### Computational Efficiency Comparison
+### Computational Efficiency
 | Models | FLOPs (GB) | Parameters (MB) |
 |--------|------------|-----------------|
 | NetVLAD | 94.3 | 148.9 |
@@ -152,15 +153,7 @@ Evaluate on the [Visual Localization Benchmark](https://www.visuallocalization.n
 | Patch-NetVLAD | 94.2 | 148.7 |
 | **Ours** | **1.6** | **6.9** |
 
-Key advantages of our approach:
-- Significantly better precision at higher K values (P@200 to P@20)
-- 58.9× fewer FLOPs than NetVLAD (1.6 GB vs 94.3 GB)
-- 21.6× fewer parameters than NetVLAD (6.9 MB vs 148.9 MB)
-- Competitive performance with state-of-the-art methods while maintaining lower computational requirements  
-
-
 ## Citation
-If you find this work useful, please cite our paper:
 ```bibtex
 @article{kang2024multi,
   title={Multi-modal {CrossViT} using {3D} spatial information for visual localization},
@@ -178,9 +171,8 @@ If you find this work useful, please cite our paper:
 - Aachen Day-Night dataset for evaluation
 
 ## Contact
-For questions or issues, please open an issue or contact the authors:
+For questions or issues:
 - Junekoo Kang (engineerjkk@naver.com) or (engineerjkk@cau.ac.kr)
 
-## Download All Files
-1. Google Drive: [download link](https://drive.google.com/drive/folders/xxx)
-
+## Resources
+- Google Drive: [download link](https://drive.google.com/drive/folders/xxx)
