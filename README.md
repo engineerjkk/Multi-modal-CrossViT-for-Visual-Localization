@@ -10,16 +10,12 @@ This is the code for **Multi-modal CrossViT using 3D spatial information for vis
 ## Model Architecture
 ![Fig 2 (a)](https://github.com/user-attachments/assets/7d9881c4-f7a9-496e-be1c-f54928ca426e)  
 <p align="center">
-### Teacher Model
-The teacher model consists of two main branches:
-- Image branch: Processes visual features using CrossViT
-- Spatial branch: Handles 3D information with RoPE encoding
+Architectures of the proposed method in training for global localization
 </p>
 
 ![Fig 2 (b)](https://github.com/user-attachments/assets/b42417f3-ee4e-43ce-9b69-565312f3b1a2)  
 <p align="center">
-### Student Model
-A lightweight version that inherits spatial awareness through knowledge distillation. 
+Inference for visual localization
 </p>
 
 This repository provides the official implementation of "Multi-modal CrossViT using 3D spatial information for visual localization" (Multimedia Tools and Applications, 2024). The proposed approach leverages both image features and 3D spatial information through a novel multi-modal architecture for accurate camera pose estimation.
@@ -115,7 +111,10 @@ The preprocessing step includes:
 
 ### 2. Model Training
 
-#### Teacher Model
+#### Teacher Model  
+The teacher model consists of two main branches:  
+- Image branch: Processes visual features using CrossViT  
+- Spatial branch: Handles 3D information with RoPE encoding  
 ```bash
 python train_multimodal_crossvit_teacher.py
 ```
@@ -124,7 +123,8 @@ Trains the multi-modal CrossViT model using:
 - Spatial contrastive learning with IoU-based similarity
 - Hard negative sampling strategy
 
-#### Student Model
+#### Student Model  
+A lightweight version that inherits spatial awareness through knowledge distillation.
 ```bash
 python train_knowledge_distillation_student.py
 ```
