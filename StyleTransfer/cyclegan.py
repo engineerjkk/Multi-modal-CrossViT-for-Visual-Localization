@@ -9,9 +9,9 @@ import numpy as np
 import os
 from tqdm import tqdm
 import torchvision.transforms as transforms
-input_dir = '/home/cvnar/JKK/datasets/aachen/images/images_upright/db/'
+input_dir = '../datasets/aachen/images/images_upright/db/'
 image_files = [f for f in os.listdir(input_dir) if f.endswith(('.png', '.jpg', '.jpeg'))]
-output_dir = '/home/cvnar/JKK/datasets/aachen/images/images_upright/db_cyclegan/'
+output_dir = '../datasets/aachen/images/images_upright/db_cyclegan/'
 transform = transforms.Compose([
     transforms.ToTensor()#,
     #transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
