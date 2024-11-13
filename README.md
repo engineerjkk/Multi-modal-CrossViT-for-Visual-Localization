@@ -25,41 +25,36 @@ Experimental results show that the proposed approach achieves performance compar
 pipeline_sfm_visuallocalization.ipynb 
 ```
 
-2. Database Preparation:
+2. Pre-processing:
 ```bash
 python preprocessing.py
 ```
 
-3. Point Cloud Processing:
-```bash
-python point_cloud_iou_processor.py
-```
-
-4. Rotary Embedding Generation:
+3. Rotary Embedding Generation:
 ```bash
 generate_RoPE_embeddings.ipynb    
 ```
 
 
 ### Training
-5. Teacher Model Training:
+4. Teacher Model Training:
 ```bash
 python train_multimodal_crossvit_teacher.py
 ```
 
-6. Student Model Training:
+5. Student Model Training:
 ```bash
 python train_knowledge_distillation_student.py
 ```
 
 ### Inference for Global Localization (image retrieval)
-7. Localization pair generation:
+6. Localization pair generation:
 ```bash
 python generate_localization_pairs.py
 ```
 
 ### Camera Pose Estimation
-8. final_pipeline.ipynb
+7. final_pipeline.ipynb
 - 11번에서 생성한 'Retrieved_Images'를 적용하며 Visual Localization을 수행합니다. 
 - Output : Pose_Estimation_Results.txt
 - Benchmark : https://www.visuallocalization.net/
