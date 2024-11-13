@@ -33,8 +33,11 @@ Visual Localization entails estimating the position and orientation of a camera 
 ## Performance Highlights
 
 ### Camera Pose Estimation Accuracy
-- Daytime accuracy: 87.3% (0.25m, 2°), 95.0% (0.5m, 5°), 97.6% (5m, 10°)
-- Nighttime accuracy: 87.8% (0.25m, 2°), 89.8% (0.5m, 5°), 95.9% (5m, 10°)
+
+| Condition | (0.25m, 2°) | (0.5m, 5°) | (5m, 10°) |
+|-----------|-------------|------------|------------|
+| Daytime   | 87.3%       | 95.0%      | 97.6%      |
+| Nighttime | 87.8%       | 89.8%      | 95.9%      |
 
 ### Image Retrieval Performance (P@K)
 | Models | P@200 | P@150 | P@100 | P@50 | P@20 | P@5 | P@1 |
