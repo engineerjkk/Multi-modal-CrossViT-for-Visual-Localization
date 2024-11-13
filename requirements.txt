@@ -1,16 +1,31 @@
-orch>=1.1
-torchvision>=0.3
-numpy
-opencv-python
-tqdm>=4.36.0
-matplotlib
-plotly
-scipy
-h5py
-pycolmap>=0.6.0
+# Deep Learning
+torch>=1.7.0
+torchvision>=0.3.0
+tensorboard>=2.0.0
+
+# Computer Vision & Image Processing
+opencv-python>=4.5.0
 kornia>=0.6.11
-gdown
-pandas
-scipy
-scikit-learn
+segment-anything @ git+https://github.com/facebookresearch/segment-anything.git
 lightglue @ git+https://github.com/cvg/LightGlue
+
+# HLOC Dependencies
+pycolmap>=0.6.0
+h5py>=3.0.0
+
+# Scientific Computing & Data Processing
+numpy>=1.19.0
+scipy>=1.6.0
+pandas>=1.2.0
+scikit-learn>=0.24.0
+
+# Visualization & Utils
+matplotlib>=3.3.0
+plotly>=4.14.0
+tqdm>=4.36.0
+pillow>=8.0.0
+gdown>=4.4.0
+
+# Optional: for development
+jupyter>=1.0.0
+ipywidgets>=7.6.0
