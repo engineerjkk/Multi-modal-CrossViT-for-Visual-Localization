@@ -1,4 +1,3 @@
-(업데이트 중 2024.11.13)
 # Spatial Contrastive Learning
 [![Paper](https://img.shields.io/badge/Paper-Springer-blue)](https://doi.org/10.1007/s11042-024-20382-w)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
