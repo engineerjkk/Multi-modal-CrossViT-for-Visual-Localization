@@ -4,7 +4,17 @@
 [![Python 3.8](https://img.shields.io/badge/python-3.8-blue.svg)](https://www.python.org/downloads/release/python-380/)
 [![arXiv](https://img.shields.io/badge/MTAP-2024-b31b1b.svg)](https://link.springer.com/article/10.1007/s11042-024-20382-w)
 
-This is the code for **Multi-modal CrossViT using 3D spatial information for visual localization** by Junekoo Kang, Mark Mpabulungi & Hyunki Hong. | Published: 18 Oct 2024 | SCIE | [[Paper](https://drive.google.com/file/d/16deTO1LvQE-eh0E4dOQJt9njEz26IRIu/view?usp=sharing)] | [[Online](https://link.springer.com/article/10.1007/s11042-024-20382-w?utm_source=rct_congratemailt&utm_medium=email&utm_campaign=nonoa_20241018&utm_content=10.1007%2Fs11042-024-20382-w)] |   
+Official implementation of "Multi-modal CrossViT using 3D spatial information for visual localization" (Multimedia Tools and Applications, 2024) by Junekoo Kang, Mark Mpabulungi, and Hyunki Hong.| [[Paper](https://drive.google.com/file/d/16deTO1LvQE-eh0E4dOQJt9njEz26IRIu/view?usp=sharing)] | [[Online](https://link.springer.com/article/10.1007/s11042-024-20382-w?utm_source=rct_congratemailt&utm_medium=email&utm_campaign=nonoa_20241018&utm_content=10.1007%2Fs11042-024-20382-w)] |   
+
+## Overview
+
+This project introduces a novel hierarchical framework for visual localization using a multi-modal CrossViT architecture that combines both image features and 3D spatial information. Key innovations include:
+
+- **Multi-modal Architecture**: Integrates visual and 3D spatial information through a dual-branch CrossViT
+- **RoPE-based Encoding**: Efficient encoding of 3D spatial information using Rotary Position Embedding
+- **Spatial Contrastive Learning**: Novel strategy using shared 3D points and IoU-based similarity metrics
+- **Knowledge Distillation**: Efficient inference through teacher-student model transfer
+- **Computational Efficiency**: 58.9× fewer FLOPs and 21.6× fewer parameters than NetVLAD
 
 ## Model Architecture
 ![Fig 2 (a)](https://github.com/user-attachments/assets/7d9881c4-f7a9-496e-be1c-f54928ca426e)  
