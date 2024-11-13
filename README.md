@@ -64,6 +64,7 @@ pip install -r requirements.txt
 ### 1. Preprocessing
 ```bash
 # Run SfM and preprocessing
+jupyter notebook pipeline_sfm_visuallocalization.ipynb
 python preprocessing.py
 
 # Generate RoPE embeddings
@@ -137,6 +138,6 @@ If you find this work useful, please cite our paper:
 
 ## Contact
 For questions or issues, please open an issue or contact the authors:
-- Junekoo Kang (engineerjkk@cau.ac.kr)
+- Junekoo Kang (engineerjkk@naver.com) or (engineerjkk@cau.ac.kr)
 
 
