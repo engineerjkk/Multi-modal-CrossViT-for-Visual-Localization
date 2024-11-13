@@ -16,28 +16,15 @@ This project introduces a novel hierarchical framework for visual localization u
 - **Knowledge Distillation**: Efficient inference through teacher-student model transfer
 - **Computational Efficiency**: 58.9× fewer FLOPs and 21.6× fewer parameters than NetVLAD
 
-## Model Architecture
+## Architecture
+### Training Architecture
 ![Fig 2 (a)](https://github.com/user-attachments/assets/7d9881c4-f7a9-496e-be1c-f54928ca426e)  
-<p align="center">
-Architectures of the proposed method in training for global localization
-</p>
-
+The training pipeline employs a dual-branch architecture:
+- Image Branch: Processes visual features using CrossViT
+- Spatial Branch: Handles 3D information with RoPE encoding
+### Inference Architecture
 ![Fig 2 (b)](https://github.com/user-attachments/assets/b42417f3-ee4e-43ce-9b69-565312f3b1a2)  
-<p align="center">
-Inference for visual localization
-</p>
-
-This repository provides the official implementation of "Multi-modal CrossViT using 3D spatial information for visual localization" (Multimedia Tools and Applications, 2024). The proposed approach leverages both image features and 3D spatial information through a novel multi-modal architecture for accurate camera pose estimation.
-
-## Abstract
-Visual Localization entails estimating the position and orientation of a camera from input images. This study proposes a hierarchical framework comprised of a multi-modal CrossViT (Vision Transformer) that leverages both image features and 3D spatial information to generate more robust global descriptors...
-
-## Key Features
-- Multi-modal CrossViT architecture leveraging 2D images and 3D spatial information
-- RoPE-based 3D spatial information encoding
-- Novel spatial contrastive learning strategy using shared 3D points
-- Knowledge distillation from teacher to student model for efficient inference
-- Significant reduction in computational requirements (58.9× fewer FLOPs, 21.6× fewer parameters than NetVLAD)
+The inference model uses a lightweight student architecture that maintains spatial awareness through knowledge distillation.
 
 ## Performance Highlights
 
