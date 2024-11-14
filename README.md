@@ -3,7 +3,7 @@
 [![Python 3.8](https://img.shields.io/badge/python-3.8-blue.svg)](https://www.python.org/downloads/release/python-380/)
 [![arXiv](https://img.shields.io/badge/MTAP-2024-b31b1b.svg)](https://link.springer.com/article/10.1007/s11042-024-20382-w)
 
-Official implementation of "**Multi-modal CrossViT using 3D spatial information for visual localization**" (Multimedia Tools and Applications, 2024) by [Junekoo Kang](https://github.com/engineerjkk), [Mark Mpabulungi](https://github.com/markompab), and Hyunki Hong. | [Paper](https://drive.google.com/file/d/16deTO1LvQE-eh0E4dOQJt9njEz26IRIu/view?usp=sharing) | [Online](https://link.springer.com/article/10.1007/s11042-024-20382-w?utm_source=rct_congratemailt&utm_medium=email&utm_campaign=nonoa_20241018&utm_content=10.1007%2Fs11042-024-20382-w) |   
+Official implementation of "**Multi-modal CrossViT using 3D spatial information for visual localization**" (*Multimedia Tools and Applications*, 2024) by [Junekoo Kang](https://github.com/engineerjkk), [Mark Mpabulungi](https://github.com/markompab), and Hyunki Hong. | [Paper](https://drive.google.com/file/d/16deTO1LvQE-eh0E4dOQJt9njEz26IRIu/view?usp=sharing) | [Online](https://link.springer.com/article/10.1007/s11042-024-20382-w?utm_source=rct_congratemailt&utm_medium=email&utm_campaign=nonoa_20241018&utm_content=10.1007%2Fs11042-024-20382-w) |   
 
 ## Table of Contents
 - [Overview](#overview)
