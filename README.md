@@ -174,4 +174,4 @@ For questions or issues:
 - Junekoo Kang (engineerjkk@naver.com) or (engineerjkk@cau.ac.kr)
 
 ## Resources
-- Google Drive: [download link](https://drive.google.com/drive/folders/xxx)
+- Google Drive: [download link](https://drive.google.com/drive/folders/xxx) (연결 X 상태입니다.)
