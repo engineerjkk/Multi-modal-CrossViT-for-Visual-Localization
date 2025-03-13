@@ -98,9 +98,10 @@ jupyter notebook generate_RoPE_embeddings.ipynb
 python train_multimodal_crossvit_teacher.py
 ```
 Implements:
-- Dual-branch architecture
+- Dual-branch architecture (Multi-modal CrossViT)
 - Spatial contrastive learning
 - Hard negative sampling
+- Knowledge Distillation  
 
 #### Student Model Training
 ```bash
